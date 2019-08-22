@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Image Slider</title>
+
+<style type="text/css">
+#slideshow {
+margin: 50px auto;
+position: relative;
+width: 900px;
+height: 450px;
+padding: 10px;
+}
+#slideshow > div {
+position: absolute;
+top: 10px;
+left: 10px;
+right: 10px;
+bottom: 10px;
+}
+#slideshow > div > img {
+width: 70%;
+}
+#button {
+text-align: left;
+border: 2px;
+}
+#prevBtn{
+    display: block;
+  margin: 0 auto;
+  width: 100px;
+  }
+  #playbutton{
+    display: block;
+  margin: 0 auto;
+  width: 100px;
+  }
+  #nextBtn{
+    display: block;
+  margin: 0 auto;
+  width: 100px;
+  }
+
+</style>
+<script>
+var imgNumber = 0;
+var path = [
+"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtj7fbaLwC7JwoUIG4d0IDcWpceh2jz0SCganv9338P4PnnOk2",
+"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0u45lW9czb6MaugVkZdJpd-kmuAQnbm5uxuQnACXaT7jRcbK_",
+"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxhIh2HD3E5Y06KBlfI1gBMNIIzBUEsxO2GQWLgCiHEJXLGTvg"
+];
+var numberOfImg = path.length;
+var timer = null;
+
+function slide() {
+imgNumber = (imgNumber + 1) % path.length;
+console.log(imgNumber);
+document.getElementById("imgSlideshow").src = path[imgNumber];
+changeCounter(imgNumber + 1, numberOfImg);
+}
+
+function setTimer() {
+if (timer) {
+clearInterval(timer);
+timer = null;
+} else {
+timer = setInterval(slide, 1000);
+}
+return false;
+}
+
+
+
+function previousImage() {
+--imgNumber;
+if (imgNumber < 0) {
+imgNumber = numberOfImg - 1;
+}
+document.getElementById("imgSlideshow").src = path[imgNumber];
+changeCounter(imgNumber + 1, numberOfImg);
+return false;
+}
+
+function nextImage() {
+++imgNumber;
+if (imgNumber > (numberOfImg - 1)) {
+imgNumber = 0;
+}
+document.getElementById("imgSlideshow").src = path[imgNumber];
+changeCounter(imgNumber + 1, numberOfImg);
+return false;
+}
+
+
+</script>
+<body>
+
+
+<div id="slideshow">
+<div>
+<img name="slide" id="imgSlideshow" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtj7fbaLwC7JwoUIG4d0IDcWpceh2jz0SCganv9338P4PnnOk2">
+</div>
+</div>
+
+<div id="button">
+ <input type="submit" value="Previous"  id="prevBtn" onclick="return previousImage()">
+ <input type="submit" value="Play/Pause"  id="playbutton" onclick="return setTimer()">
+ <input type="submit" value="Next"  id="nextBtn" onclick="return nextImage()">
+ 
+
+
+</div>
+
+</body>
+</html>
