@@ -1,0 +1,299 @@
+<html>
+	<head>
+		<title>Form Demo</title>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  		<link rel="stylesheet" href="/resources/demos/style.css">
+  		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<style>
+
+			
+			#register-form {
+                background: url("form-fieldset.gif") repeat-x scroll left bottom yellowgreen;
+                border: 1px solid yellow;
+                border-radius: 15px 15px 15px 15px;
+                display: inline-flexbox;
+                margin-bottom: 30px;
+                margin-left: 20px;
+                margin-top: 10px;
+                padding: 25px 50px 10px;
+                width: 550px;
+            }
+
+            #register-form .fieldgroup {
+               background: url("form-divider.gif") repeat-x scroll left top transparent;
+               display: inline-block;
+               padding: 8px 10px;
+               width: 340px;
+            }
+
+            #register-form .fieldgroup label {
+              float: left;
+              padding: 15px 0 0;
+              text-align: right;
+              width: 110px;
+            }
+
+            #register-form .fieldgroup input, #register-form .fieldgroup textarea, #register-form .fieldgroup select {
+             float: right;
+             margin: 10px 0;
+             height: 25px;
+            }
+
+           #register-form .submit {
+            padding: 10px;
+            width: 220px;
+            height: 40px !important;
+           }
+
+          #register-form .fieldgroup label.error {
+            color: #FB3A3A;
+            display: inline-block;
+            margin: 4px 0 5px 125px;
+            padding: 0;
+            text-align: left;
+            width: 220px;
+          }
+		  .error{
+				display: none;
+			}		
+
+			.error_show{
+				color: red;
+				
+			}
+
+			input.invalid{
+				border: 2px solid red;
+			}
+
+			input.valid{
+				border: 2px solid green;
+			}
+
+			.noerror {
+				color : green;
+			}
+
+			.errormsg {
+  				color: red;
+			}	
+			#gender{
+				align-content: center
+			}
+
+		</style>
+
+	</head>
+	<body>	
+
+		<h2>Registration Form</h2>
+
+		<form action="" method="post" id="register-form" >
+			<div id="form-content">
+			<fieldset>
+		
+			<div class="fieldgroup">
+			<label>Name:</label>
+			<input type="text" id="name" name="name" required><br><br>
+			<label id="errorname" class="errormsg"></label>
+			<label id="noerrorname" class="noerror"></label>
+			</div>
+
+			<br>
+			<div class="fieldgroup">
+			<label>Email:</label>
+			<input type="text" id="email" name="email" required><br><br>
+			<label id="erroremail" class="errormsg"></label>
+    		<label id="noerroremail" class="noerror"></label>
+             </div>
+			<br>
+			<div class="fieldgroup">
+			<label>Phone:</label>
+			<input type="phone" id="phone" name="phone" required><br><br>
+			<label id="errorphone" class="errormsg"></label>
+    		<label id="noerrorphone" class="noerror"></label>
+		   </div>
+			<br>
+			
+			<label>Gender:</label>
+			<input type="radio" name="gender" value="male" id="gender">Male
+			<input type="radio" name="gender" value="female" id="gender">Female<br><br>
+			 
+		    <div class="fieldgroup">
+			   <label>DOB:</label>
+			   <input type="text" id="date"><br><br>
+               <label>Age:</label>
+			   <input type="text" id="age" readonly><br><br>
+			</div>
+			<div class="fieldgroup">
+			   <label>Address:</label>
+			   <input type="text" id="address"><br><br>
+			   <label id="erroraddress" class="errormsg"></label>
+    		   <label id="noerroraddress" class="noerror"></label>
+			</div>
+			<div class="fieldgroup">
+				<label>Profile url:</label>
+				<input type="text" id="profileurl"><br><br>
+				<label id="errorprofileurl" class="errormsg"></label>
+    		    <label id="noerrorprofileurl" class="noerror"></label>
+				</div>
+		</form>
+			  <input type="submit" name="submit" id="submit" value="Save" onclick="showResult();">
+			  
+			   <br>
+		<label>Your result: </label>
+  		<p><span id="area1"></span></p>
+  		<p><span id="area2"></span></p>
+  		<p><span id="area3"></span></p>
+  		<p><span id="area4"></span></p>
+  		<p><span id="area5"></span></p>
+  		<p><span id="area6"></span></p>
+  		<p><span id="area7"></span></p>
+
+		<script>
+
+			//Name Validation
+			$("#name").on("input", function() {
+
+    			var input=$(this);
+    			var reg=/^[a-zA-Z]{3,16}$/;
+				var is_name=reg.test(input.val());
+
+				if(is_name){
+
+					input.removeClass("invalid").addClass("valid");
+					$('#errorname').hide();
+        			$('#noerrorname').text("Valid Name");
+
+				} else {
+
+					input.removeClass("valid").addClass("invalid");
+					$('#errorname').text("Invalid Name") ; 
+				}
+			});
+
+			//Email Validation
+			$('#email').on('input', function() {
+
+				var input=$(this);
+				var reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+				var is_email=reg.test(input.val());
+				
+				if(is_email){
+
+        			input.removeClass("invalid").addClass("valid");
+        			$('#erroremail').hide();
+        			$('#noerroremail').text("Valid Email");
+       
+    			} else {
+
+        			input.removeClass("valid").addClass("invalid");
+        			$('#erroremail').text("Invalid Email") ;    
+
+    			}
+				
+
+			});
+		
+
+			//Phone Validation
+			$('#phone').on('input', function() {
+
+				var input=$(this);
+				var reg = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+				var is_phone=reg.test(input.val());
+
+				if(is_phone){
+
+        			input.removeClass("invalid").addClass("valid");
+        			$('#errorphone').hide();
+        			$('#noerrorphone').text("phone verified");
+
+             	} else {
+        
+        			input.removeClass("valid").addClass("");
+        			$('#errorphone').text("invalid phone") ; 
+       
+     			}
+			});
+
+			//Address Validation
+			$('#address').on('input', function() {
+
+				var input=$(this);
+				var reg = /^[0-9a-zA-Z]+$/;
+				var is_address=reg.test(input.val());
+				if(is_address){
+
+              input.removeClass("invalid").addClass("valid");
+               $('#erroraddress').hide();
+               $('#noerroraddress').text("address verified");
+
+           } else {
+
+              input.removeClass("valid").addClass("");
+              $('#erroraddress').text("invalid address") ; 
+
+                }
+              });
+
+			  //ProfileURL Validation
+		// 	  $('#profileurl').on('input', function() {
+
+        //      var input=$(this);
+        //       var reg = /^(http|https)?:\/\/[a-zA-Z0-9-\.]+\.[a-z]{2,4}/;
+        //      var is_profileurl=reg.test(input.val());
+        //      if(is_profileurl){
+
+        //      input.removeClass("invalid").addClass("valid");
+        //      $('#errorprofileurl').hide();
+        //       $('#noerrorprofileurl').text("profileurl verified");
+
+        //       } else {
+
+        //    input.removeClass("valid").addClass("");
+        //      $('#errorprofileurl').text("invalidprofileurl") ; 
+
+        //      }
+        //     });
+
+
+
+
+			//Calculate Age
+			$(document).ready(function () {
+            	var age = "";
+            	$('#date').datepicker({
+                	onSelect: function (value, ui) {
+                    	var today = new Date();
+                    	age = today.getFullYear() - ui.selectedYear;
+                    	$('#age').val(age);
+                	},
+                	changeMonth: true,
+                	changeYear: true
+            	});
+        	});
+			$("#submit").click(function(event) {
+        if( !confirm('Are you sure that you want to submit the form') ){
+            event.preventDefault();
+        } 
+
+    });
+
+			//Show all the values of form after submitting the form
+			function showResult() {
+        		document.getElementById('area1').innerHTML = document.getElementById("name").value;
+        		document.getElementById('area2').innerHTML = document.getElementById("email").value;
+        		document.getElementById('area3').innerHTML = document.getElementById("phone").value;
+        		document.getElementById('area4').innerHTML = document.getElementById("gender").value;
+        		document.getElementById('area5').innerHTML = document.getElementById("date").value;
+        		document.getElementById('area6').innerHTML = document.getElementById("age").value;
+        		document.getElementById('area7').innerHTML = document.getElementById("address").value;
+    		}
+
+		</script>
+		
+	</body>
+</html>
